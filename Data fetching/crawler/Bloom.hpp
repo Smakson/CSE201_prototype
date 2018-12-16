@@ -12,7 +12,37 @@ template <class Hashable> class Bloom {
     * in the Bloom filter is that one can hash it efficiently. The below public methods are made
     * for all who simply wish to interact with the data structure, while not being bothered by
     * the details of it. 
-    */   
+    */
+    //NOTE: THE PRIVATE PART IS UNFINISHED AND SUBJECT TO CHANGE
+    private:
+    /*
+    * Private variables:
+    *       - ``std::string path``: stores the path (absolute) location of where the Bloom filter (byteset should be stored.     
+    *           The value defaults to NULL if it is not provided in the constructor.
+    *       - ``int hashers``: the amount of hash functions used, initialized in this project to 23.
+    *       - ``bset``: the current bitset that stores the Bloom filter. The number of bits was calculated by
+    *           https://hur.st/bloomfilter/
+    *       - ``int bitsize``: sets the size of the biteset that will be used to store the filter. For this project leave it
+    *           empty to have it done for you.
+    *       
+    * Private methods:
+    *       - ``int[hashers] * hash(Hashable info)``: returns array containing the hashes of the (Hashable info) computed by
+    *          the ``hashers`` different hash functions. Basically will tell us what bits to set in the bitset.
+    *       - ``int[hashers] getBits(std::vector<unsigned long int>  locs)``: returns a pointer to an array of bits (1s and 0s) 
+    *           located in ``bset`` at the locations specified in ``locs``.
+    *       - ``void setBits(std::vector<unsigned long int> locs)``: sets the bits located in ``bset``
+    *           at the locations specified in ``locs`` to 1. We only support setting to 1 as that is 
+    *           all we need in a Bloom filter.
+    */
+    std::string save;
+    int hashers;
+    int bitsize;
+    std::bitset bset(bitsize);
+    
+    int[hashers] * hash(Hashable info);
+    int[hashers] * getBits(std::vector<unsigned long int>  locs);
+    void setBits(std::vector<unsigned long int> locs);
+    
     public:
     /*
     * Public variables:
@@ -46,35 +76,5 @@ template <class Hashable> class Bloom {
     void setPath(std::string path);
     std::string getPath();
     ~Bloom();
-    std::string DoYouHash; 
-    //NOTE: THE PRIVATE PART IS UNFINISHED AND SUBJECT TO CHANGE
-    private:
-    /*
-    * Private variables:
-    *       - ``std::string path``: stores the path (absolute) location of where the Bloom filter (byteset should be stored.     
-    *           The value defaults to NULL if it is not provided in the constructor.
-    *       - ``int hashers``: the amount of hash functions used, initialized in this project to 23.
-    *       - ``bset``: the current bitset that stores the Bloom filter. The number of bits was calculated by
-    *           https://hur.st/bloomfilter/
-    *       - ``int bitsize``: sets the size of the biteset that will be used to store the filter. For this project leave it
-    *           empty to have it done for you.
-    *       
-    * Private methods:
-    *       - ``int[hashers] * hash(Hashable info)``: returns array containing the hashes of the (Hashable info) computed by
-    *          the ``hashers`` different hash functions. Basically will tell us what bits to set in the bitset.
-    *       - ``int[hashers] getBits(std::vector<unsigned long int>  locs)``: returns a pointer to an array of bits (1s and 0s) 
-    *           located in ``bset`` at the locations specified in ``locs``.
-    *       - ``void setBits(std::vector<unsigned long int> locs)``: sets the bits located in ``bset``
-    *           at the locations specified in ``locs`` to 1. We only support setting to 1 as that is 
-    *           all we need in a Bloom filter.
-    */
-    std::string path;
-    int hashers;
-    int bitsize;
-    std::bitset bset(bitsize);
-    
-    int[hashers] * hash(Hashable info);
-    int[hashers] * getBits(std::vector<unsigned long int>  locs);
-    void setBits(std::vector<unsigned long int> locs);
-    
+    std::string DoYouHash;    
 };
