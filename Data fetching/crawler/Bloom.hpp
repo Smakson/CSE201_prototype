@@ -37,7 +37,7 @@ template <class Hashable> class Bloom {
     std::string save;
     int hashers;
     int bitsize;
-    std::bitset bset(bitsize);
+    std::bitset * bset(bitsize);
     
     int[hashers] * hash(Hashable info);
     int[hashers] * getBits(std::vector<unsigned long int>  locs);
